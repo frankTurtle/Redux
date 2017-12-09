@@ -23,7 +23,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+export default class App extends Component {
   render() {
     return (
       <Provider store={createStore(reducers)}>
