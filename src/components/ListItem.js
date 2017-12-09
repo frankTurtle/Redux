@@ -1,16 +1,31 @@
 import React, { Component } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  LayoutAnimation,
+  UIManager,
+  Platform
+} from "react-native";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 
 class ListItem extends Component {
+  componentWillMount(){
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
+  componentWillUpdate(){
+    LayoutAnimation.spring();
+  }
+
   renderDescription() {
     const { id, description } = this.props.library.item;
 
-    if( this.props.expanded ){
-      return(
-        <Text>{description}</Text>
-      );
+    if (this.props.expanded) {
+      return <Text>{description}</Text>;
     }
   }
 
@@ -18,7 +33,7 @@ class ListItem extends Component {
     const { id, title } = this.props.library.item;
 
     return (
-      <TouchableWithoutFeedback onPress={ () => this.props.selectLibrary(id)}>
+      <TouchableWithoutFeedback onPress={() => this.props.selectLibrary(id)}>
         <View>
           <Text>{title}</Text>
           {this.renderDescription()}
@@ -29,7 +44,7 @@ class ListItem extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const expanded = state.selectedLibraryID === ownProps.library.item.id
+  const expanded = state.selectedLibraryID === ownProps.library.item.id;
 
   return { expanded };
 };
