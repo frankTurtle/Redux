@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
-import * as actions from '../actions';
-import { connect } from 'react-redux';
+import { View, Text, TouchableWithoutFeedback } from "react-native";
+import * as actions from "../actions";
+import { connect } from "react-redux";
 
 class ListItem extends Component {
   render() {
     console.log(this.props);
+    const { id, title } = this.props.library.item;
 
     return (
-      <View>
-        <Text>{this.props.library.item.title}</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={ () => this.props.selectLibrary(id)}>
+        <View>
+          <Text>{title}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
 
-export default connect( null, actions)(ListItem);
+export default connect(null, actions)(ListItem);
