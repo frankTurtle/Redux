@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 class ListItem extends Component {
-    render() {
-        console.log( this.props.library.item.title );
+  render() {
+    console.log(this.props);
 
-        return(
-            <View>
-                <Text>{this.props.library.item.title}</Text>
-            </View>
-        )
-    }
+    return (
+      <View>
+        <Text>{this.props.library.item.title}</Text>
+      </View>
+    );
+  }
 }
 
-export default ListItem;
+export default connect( null, actions)(ListItem);
